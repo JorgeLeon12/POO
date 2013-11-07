@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 class PanelControl extends JPanel implements ActionListener{
-	JButton niveles;
+	JButton niveles, inicio, continuar,instrucciones;
 
 	
 	
@@ -14,9 +14,9 @@ class PanelControl extends JPanel implements ActionListener{
 		super();	
 		this.setLayout(null);
 		
-		JButton inicio=new JButton("Comenzar nuevo juego");
-		JButton continuar=new JButton("Continuar Juego");
-		JButton instrucciones=new JButton("Instrucciones");
+		inicio=new JButton("Comenzar nuevo juego");
+		continuar=new JButton("Continuar Juego");
+		instrucciones=new JButton("Instrucciones");
 		niveles=new JButton("Niveles");
 			
 		inicio.addActionListener(this);		
@@ -49,11 +49,15 @@ class PanelControl extends JPanel implements ActionListener{
 		if(e.getSource()==this.niveles){
 			this.getParent().add(new Niveles());
 			this.getParent().remove(this);
+		}
+		if(e.getSource()==this.inicio){
+			this.getParent().add(new Inicio());
+			this.getParent().remove(this);
+			System.out.println("inicio");
+		}
 	
 		
-		
-			
-		}
+	
 		
 	}
 
