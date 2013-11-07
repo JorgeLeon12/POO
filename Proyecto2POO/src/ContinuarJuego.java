@@ -1,4 +1,4 @@
 
-public class ContinuarJuego {
+public class ContinuarJuego{
 
 }
