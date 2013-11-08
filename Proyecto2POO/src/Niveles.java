@@ -41,7 +41,9 @@ public class Niveles extends JPanel implements ActionListener {
 	}
 
 	public void seleccionarDificultad(String dificultad){
-		this.getParent().add(new Juego());
+		Juego elJuego = new Juego(dificultad);
+		//elJuego.setDificultad(dificultad);
+		this.getParent().add(elJuego);
 		this.getParent().remove(this);
 	}
 
@@ -57,13 +59,6 @@ public class Niveles extends JPanel implements ActionListener {
 		String dificultad=origen.getText();
 		this.seleccionarDificultad(dificultad);
 		System.out.println(dificultad);
-		if(dificultad == "Principiante"){
-			try {
-				image = ImageIO.read(new File("./Numeros/1.png"));
-			}catch (IOException ex) {
-				System.out.println("Error con la imagen");
-			}
-		}
 	}
 
 }
