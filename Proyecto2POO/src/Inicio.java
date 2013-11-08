@@ -49,6 +49,7 @@ public class Inicio extends JPanel implements ActionListener{
 		this.add(guardar);
 		this.add(cancelar);
 	}
+	
 	public void guardarUs(String usuario){
 		try {
 			String archivo=new File("").getAbsolutePath()+"//src//JuegosGuardados//"+usuario+".txt";
@@ -57,7 +58,6 @@ public class Inicio extends JPanel implements ActionListener{
 			escritor.println(0);
 			escritor.close();
 		} catch (IOException e) {
-// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -86,14 +86,13 @@ public class Inicio extends JPanel implements ActionListener{
 //			dialogo.setModal(true);
 //			this.add(dialogo);
 			panel=new Juego();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
 		}
 		if(e.getSource()==cancelar){
 			panel=new PanelControl();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
+			
 		}
+		this.getParent().add(panel);
+		this.getParent().remove(this);
 		panel.getParent().validate();
 	}
 }

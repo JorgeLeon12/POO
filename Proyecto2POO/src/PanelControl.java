@@ -1,6 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -41,16 +43,16 @@ class PanelControl extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JPanel panel=new JPanel();
 		if(e.getSource()==this.niveles){
-			panel=new Niveles();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
-			
+			panel=new Niveles();			
 		}
 		if(e.getSource()==this.inicio){
-			panel=new Inicio();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
+			panel=new Inicio();			
 		}
+		if(e.getSource()==this.continuar){
+			panel=new ContinuarJuego();
+		}		
+		this.getParent().add(panel);
+		this.getParent().remove(this);
 		panel.getParent().validate();
 	}
 }
