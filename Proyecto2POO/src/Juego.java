@@ -22,7 +22,8 @@ public class Juego extends JPanel{
 	public JTextField respUsr;
 
 	public Juego(){
-		super();		
+		super();
+		this.setLayout(null);
 	}
 	
 	
@@ -46,7 +47,7 @@ public class Juego extends JPanel{
 		}else if(dificultad == "Sencillo"){//----------------------------------Sensillo----------------------------------------------
 			System.out.println(dificultad);
 			try {
-				coor1 = 250;
+				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
 				imgNum = ImageIO.read(new File(strNum1));
@@ -55,10 +56,14 @@ public class Juego extends JPanel{
 			}catch (IOException ex) {
 				System.out.println("Error con la imgNumn");
 			}
+			respUsr = new JTextField(20);
+			//respUsr.addActionListener(this);
+			respUsr.setLocation(2000,2000);
+			this.add(respUsr);
 		}else if(dificultad == "Retador"){//----------------------------------Retador----------------------------------------------
 			System.out.println(dificultad);
 			try {
-				coor1 = 250;
+				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
 				imgNum = ImageIO.read(new File(strNum1));
@@ -70,7 +75,7 @@ public class Juego extends JPanel{
 		}else if(dificultad == "Avanzado"){//----------------------------------Avanzado----------------------------------------------
 			System.out.println(dificultad);
 			try {
-				coor1 = 250;
+				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
 				imgNum = ImageIO.read(new File(strNum1));
@@ -82,7 +87,7 @@ public class Juego extends JPanel{
 		}else if(dificultad == "DIOS"){//----------------------------------OH GOD WHY!?----------------------------------------------
 			System.out.println(dificultad);
 			try {
-				coor1 = 250;
+				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
 				imgNum = ImageIO.read(new File(strNum1));
