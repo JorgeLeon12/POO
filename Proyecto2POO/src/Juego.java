@@ -34,8 +34,8 @@ public class Juego extends JPanel{
 		dificultad = difi;
 		num1 = (int) Math.round((Math.random()*9));
 		num2 = (int) Math.round((Math.random()*9));
-		String strNum1 = "./Numeros/" + (Integer.toString(num1)) + ".png";
-		String strNum2 = "./Numeros/" + (Integer.toString(num2)) + ".png";
+		String strNum1 = ".//Numeros//" + (Integer.toString(num1)) + ".png";
+		String strNum2 = ".//Numeros//" + (Integer.toString(num2)) + ".png";
 		if(dificultad == "Principiante"){
 			System.out.println(dificultad);
 			try {

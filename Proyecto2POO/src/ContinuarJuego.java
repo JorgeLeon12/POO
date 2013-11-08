@@ -1,4 +1,14 @@
+import javax.swing.JPanel;
 
-public class ContinuarJuego{
 
+public class ContinuarJuego extends JPanel{
+	
+	public ContinuarJuego(){
+		super();
+		
+		
+	}
+
+	
+	
 }

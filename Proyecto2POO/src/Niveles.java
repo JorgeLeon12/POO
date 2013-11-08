@@ -45,6 +45,7 @@ public class Niveles extends JPanel implements ActionListener {
 		//elJuego.setDificultad(dificultad);
 		this.getParent().add(elJuego);
 		this.getParent().remove(this);
+		elJuego.getParent().validate();
 	}
 
     @Override
