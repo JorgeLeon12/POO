@@ -16,6 +16,11 @@ public class Juego extends JPanel{
 	private int num1, num2;
 	private String dificultad = "";
 
+	public Juego(){
+		super();		
+	}
+	
+	
 	//Accessors o funciones para acceder a una clase... no son precisamente indispensables pero java los ama
 	public void setDificultad(String valor) {
 		dificultad = valor;
