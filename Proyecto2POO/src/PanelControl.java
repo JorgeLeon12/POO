@@ -39,15 +39,18 @@ class PanelControl extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JPanel panel=new JPanel();
 		if(e.getSource()==this.niveles){
-			this.getParent().add(new Niveles());
+			panel=new Niveles();
+			this.getParent().add(panel);
 			this.getParent().remove(this);
+			
 		}
 		if(e.getSource()==this.inicio){
-			this.getParent().add(new Inicio());
+			panel=new Inicio();
+			this.getParent().add(panel);
 			this.getParent().remove(this);
-			System.out.println("inicio");
 		}
-
+		panel.getParent().validate();
 	}
 }

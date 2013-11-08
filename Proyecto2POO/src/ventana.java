@@ -29,15 +29,6 @@ public class ventana extends JFrame{
 
 		PanelControl inicio=new PanelControl();
 		ventana.add(inicio);
-		try{
-			while(true){
-				ventana.actualizar();
-				Thread.sleep(20);
-				ventana.setVisible(true);
-			}
-		}
-		catch(InterruptedException e){
-			System.out.println(e);
-		}
+		ventana.setVisible(true);
 	}
 }

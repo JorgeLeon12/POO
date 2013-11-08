@@ -78,18 +78,22 @@ public class Inicio extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JPanel panel=new JPanel();		
 		if(e.getSource()==guardar){
 			String usuario=this.usuario.getText();
 			this.guardarUs(usuario);
 //			JDialog dialogo=new JDialog(ventana.getFrames(),"¡Exito!",true);
 //			dialogo.setModal(true);
 //			this.add(dialogo);
-			this.getParent().add(new Juego());
+			panel=new Juego();
+			this.getParent().add(panel);
 			this.getParent().remove(this);
 		}
 		if(e.getSource()==cancelar){
-			this.getParent().add(new PanelControl());
+			panel=new PanelControl();
+			this.getParent().add(panel);
 			this.getParent().remove(this);
 		}
+		panel.getParent().validate();
 	}
 }
