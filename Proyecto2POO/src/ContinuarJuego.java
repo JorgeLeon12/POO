@@ -1,4 +1,7 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,44 +11,57 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 public class ContinuarJuego extends JPanel implements ActionListener{
-	JButton cancelar;
+	JButton cancelar, boton, nuevo;
 	String[] usuario;
 	int[] score;
 	
 	public ContinuarJuego(){
-		super();
-		
-		this.setLayout(null);			
-		JLabel titulo=new JLabel("Selecciona una Partida");
-		cancelar=new JButton("Cancelar");
-		cancelar.addActionListener(this);
-		Box cajaV=Box.createVerticalBox();
-		cajaV.setSize(600, 400);
-		cajaV.setLocation(100, 100);
-		cajaV.createGlue();
+		super();		
 		this.lector();
+		this.setLayout(new BorderLayout());
+		JPanel tituloPanel=new JPanel();
+		JPanel contenedor=new JPanel();
+		JPanel inferior=new JPanel();
 		
+		JScrollPane scroll=new JScrollPane(contenedor);
+		contenedor.setLayout(new FlowLayout(FlowLayout.CENTER,1000,20));
+		contenedor.setPreferredSize(new Dimension(700,500));
+		tituloPanel.setPreferredSize(new Dimension(800,50));
+		tituloPanel.setLayout(new FlowLayout());
+		inferior.setPreferredSize(new Dimension(800,50));
+
 		for(int i=0;this.usuario.length>i;i++){
-			JButton boton=new JButton("Usuario: "+usuario[i]+" Score: "+score[i]);
-			cajaV.add(boton);
+			boton=new JButton("Usuario: "+usuario[i]+" Score: "+score[i]);
+			boton.setActionCommand(usuario[i]);
+			boton.setPreferredSize(new Dimension(400, 50));
+			boton.addActionListener(this);
+			contenedor.add(boton);
+			
 		}		
 		
+		JLabel titulo=new JLabel("Selecciona una partida");
 		Font myFont= new Font ("Comic Sans MS",1,22);		
 		titulo.setFont(myFont);
-		titulo.setBounds(280, 10, 400, 50);
-		cancelar.setBounds(690,530,100,30);
+		titulo.setBounds(800, 100,800,100);
 		
+		cancelar=new JButton("Cancelar");
+		nuevo=new JButton("Nueva Partida");
+		cancelar.addActionListener(this);
+		nuevo.addActionListener(this);
 		
-		this.add(titulo);
-		this.add(cancelar, BorderLayout.SOUTH);		
-		this.add(cajaV);		
+		tituloPanel.add(titulo);
+		inferior.add(nuevo);
+		inferior.add(cancelar);		
+		this.add(tituloPanel, BorderLayout.NORTH);
+		this.add(scroll, BorderLayout.CENTER);
+		this.add(inferior, BorderLayout.SOUTH);
 	}
 
 	public void lector(){
@@ -93,14 +109,22 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 		JPanel panel=new JPanel();	
 		if(e.getSource()==this.cancelar){
 			panel=new PanelControl();
+			this.getParent().add(panel);
+			this.getParent().remove(this);
+			panel.getParent().validate();
 		}
-		
-		this.getParent().add(panel);
-		this.getParent().remove(this);
-		panel.getParent().validate();
-		
+		else{
+			System.out.println(e.getActionCommand());
+			
+		}
+		if(e.getSource()==this.nuevo){
+			panel=new Inicio();
+			this.getParent().add(panel);
+			this.getParent().remove(this);
+			panel.getParent().validate();
+		}
+		if(e.getSource()==this.cancelar){
+			
+		}
 	}
-
-	
-	
 }

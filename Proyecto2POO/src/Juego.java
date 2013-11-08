@@ -44,7 +44,7 @@ public class Juego extends JPanel{
 		String strNum2 = "./Numeros/" + (Integer.toString(num2)) + ".png";
 
 		if(dificultad == "Principiante"){
-		}else if(dificultad == "Sencillo"){//----------------------------------Sensillo----------------------------------------------
+		}else if(dificultad == "Sencillo"){//----------------------------------Sencillo----------------------------------------------
 			System.out.println(dificultad);
 			try {
 				coor1 = 240;

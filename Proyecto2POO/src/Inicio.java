@@ -61,20 +61,7 @@ public class Inicio extends JPanel implements ActionListener{
 			e.printStackTrace();
 		}
 	}
-//	
-//	public void paint(Graphics g){
-//		Font myFont= new Font ("Comic Sans MS",1,22);
-//		String texto1="Juego Nuevo";
-//		String texto2="Escribe Tu nombre:";
-//		
-//		g.setFont(myFont);
-//		g.setColor(Color.BLUE);
-//		g.drawString(texto1,340,30);
-//		g.setColor(Color.BLACK);
-//		g.drawString(texto2,300,250);
-//		
-//		
-//	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

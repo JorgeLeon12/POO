@@ -8,7 +8,7 @@ public class ventana extends JFrame{
 	public ventana(){
 		super("Matematicas");
 		this.setSize(new Dimension(800,600));
-		this.setResizable(false);
+//		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -18,7 +18,6 @@ public class ventana extends JFrame{
 		Niveles panel=new Niveles();
 		this.add(panel);
 		repaint();
-		System.out.println("holis");
 	}
 
 	public void actualizar(){

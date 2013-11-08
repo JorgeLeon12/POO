@@ -12,7 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Niveles extends JPanel implements ActionListener {
-	JButton principiante, facil, medio, dificil;
+	JButton principiante, facil, medio, dificil, cancelar;
+	JPanel panel;
 
 	private BufferedImage image;
 
@@ -23,21 +24,26 @@ public class Niveles extends JPanel implements ActionListener {
 		facil=new JButton("Sencillo");
 		medio=new JButton("Retador");
 		dificil=new JButton("Avanzado");
+		cancelar=new JButton("Cancelar");
 
 		principiante.addActionListener(this);
 		facil.addActionListener(this);
 		medio.addActionListener(this);
 		dificil.addActionListener(this);
+		cancelar.addActionListener(this);
 
 		principiante.setBounds(300,130,200,30);
 		facil.setBounds(300,220,200,30);
 		medio.setBounds(300,310,200,30);
 		dificil.setBounds(300,400,200,30);
+		cancelar.setBounds(690,530,100,30);
+
 
 		this.add(principiante);
 		this.add(facil);
 		this.add(medio);
 		this.add(dificil);
+		this.add(cancelar);
 	}
 
 	public void seleccionarDificultad(String dificultad){
@@ -56,10 +62,18 @@ public class Niveles extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton origen = (JButton)e.getSource();
-		String dificultad=origen.getText();
-		this.seleccionarDificultad(dificultad);
-		System.out.println(dificultad);
+		if(e.getSource()==this.cancelar){	
+			this.panel=new PanelControl();
+			this.getParent().add(panel);
+			this.getParent().remove(this);
+			this.panel.getParent().validate();
+		}
+		else{
+			JButton origen = (JButton)e.getSource();
+			String dificultad=origen.getText();
+			this.seleccionarDificultad(dificultad);
+			System.out.println(dificultad);			
+		}
 	}
 
 }
