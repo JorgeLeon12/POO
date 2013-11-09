@@ -64,7 +64,7 @@ class PanelControl extends JPanel implements ActionListener{
 	
 	public void paint(Graphics g){		
 		super.paint(g);		
-		g.drawImage(img, ((this.getParent().getWidth()/8)*3-60), (this.getParent().getHeight()/12),null);
+		g.drawImage(img, (this.getWidth()/2)-160, (this.getParent().getHeight()/12),null);
 		
 	}
 
