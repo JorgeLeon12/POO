@@ -135,17 +135,17 @@ public class Juego extends JPanel implements ActionListener{
             }
         }else if(dificultad == "Retador"){//----------------------------------Retador----------------------------------------------
             try{
-                this.coor1 = 240;
+                this.coor1 = 135;
                 this.coor2 = 455;
                 this.coor3 = 345;
                 this.coor4 = 240;
-                this.coor5 = 445;
+                this.coor5 = 570;
                 this.maxNum1 = 8;
                 this.maxNum2 = 8;
                 this.maxNum3 = 2;
                 do{
                     generarNumeros();
-                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 20 && (this.num1 + this.num2) < 30);
+                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 20 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 30);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -166,7 +166,7 @@ public class Juego extends JPanel implements ActionListener{
                 this.maxNum3 = 3;
                 do{
                     generarNumeros();
-                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 30 && ((this.num1*10) + (this.num2*10) + this.num3 + this.num4) < 40);
+                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 30 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 40);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -187,7 +187,7 @@ public class Juego extends JPanel implements ActionListener{
                 this.maxNum3 = 4;
                 do{
                     generarNumeros();
-                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 40 && ((this.num1*10) + (this.num2*10) + this.num3 + this.num4) < 50);
+                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 40 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 50);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
