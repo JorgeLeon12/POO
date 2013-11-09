@@ -68,7 +68,7 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 	}
 
 	public void lector(){
-		String ruta=new File("").getAbsolutePath()+"//src//JuegosGuardados//";
+		String ruta=new File("").getAbsolutePath()+"//JuegosGuardados//";
 		File archivo=new File(ruta);
 		BufferedReader lector;
 		String linea;
@@ -104,6 +104,9 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 		
 		else{
 			System.out.println("EL directorio no existe");
+			 File carpeta =new File(".//JuegosGuardados");
+             carpeta.mkdirs();
+             this.lector();
 		}		
 	}
 	
