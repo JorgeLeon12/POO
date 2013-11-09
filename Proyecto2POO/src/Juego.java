@@ -35,6 +35,7 @@ public class Juego extends JPanel implements ActionListener{
 	private String dificultad = "";
 	public JTextField respUsr;
 	public JButton enviar;
+	public JLabel labelPoint;
 
 	public Juego(){
 		super();
@@ -69,6 +70,8 @@ public class Juego extends JPanel implements ActionListener{
 		String strNum1 = "./Numeros/" + (Integer.toString(num1)) + ".png";
 		String strNum2 = "./Numeros/" + (Integer.toString(num2)) + ".png";
 
+		labelPoint = new JLabel("Tu puntacion actual es de " + this.puntuacion);
+		this.add(labelPoint);
 		if(this.puntuacion == 0){
 			respUsr = new JTextField(5);
 			respUsr.addActionListener(this);
@@ -139,7 +142,7 @@ public class Juego extends JPanel implements ActionListener{
     		if((this.num1 + this.num2) == respuestaUsuario){
     			this.puntuacion = this.puntuacion + 10;
     			System.out.println("Correcto, la respuesta es " + (this.num1+this.num2) + " y tu puntuacion es de " + this.puntuacion);
-    			//respUsr.setText(null);
+    			respUsr.setText(null);
     			pintarJuego();
     			this.repaint();
     		}else{
