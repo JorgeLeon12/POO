@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,8 +12,17 @@ class PanelControl extends JPanel implements ActionListener{
 
 	public PanelControl(){
 		super();
-		this.setLayout(null);
-
+		this.setLayout(new BorderLayout());
+		
+		JPanel superior=new JPanel();
+		JPanel contenedor=new JPanel();
+		JPanel inferior=new JPanel();
+		
+		superior.setPreferredSize(new Dimension(800,50));
+		contenedor.setPreferredSize(new Dimension(800,500));
+		inferior.setPreferredSize(new Dimension(800,50));
+		contenedor.setLayout(new FlowLayout(FlowLayout.CENTER, 1000,10));
+		
 		inicio=new JButton("Comenzar nuevo juego");
 		continuar=new JButton("Continuar Juego");
 		instrucciones=new JButton("Instrucciones");
@@ -22,16 +32,19 @@ class PanelControl extends JPanel implements ActionListener{
 		continuar.addActionListener(this);
 		instrucciones.addActionListener(this);
 		niveles.addActionListener(this);
-
-		this.add(inicio);
-		this.add(continuar);
-		this.add(niveles);
-		this.add(instrucciones);
-
-		inicio.setBounds(300, 300, 200, 30);
-		continuar.setBounds(300,340,200,30);
-		niveles.setBounds(300,380,200,30);
-		instrucciones.setBounds(300,420,200,30);
+		
+		inicio.setPreferredSize(new Dimension(200,30));
+		continuar.setPreferredSize(new Dimension(200,30));
+		instrucciones.setPreferredSize(new Dimension(200,30));
+		niveles.setPreferredSize(new Dimension(200,30));
+		
+		contenedor.add(inicio);
+		contenedor.add(continuar);
+		contenedor.add(niveles);
+		contenedor.add(instrucciones);
+		this.add(superior, BorderLayout.NORTH);
+		this.add(contenedor, BorderLayout.CENTER);				
+		this.add(inferior, BorderLayout.SOUTH);
 	}
 
 	public void addPanel(JPanel panel){

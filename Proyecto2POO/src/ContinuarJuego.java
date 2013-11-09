@@ -42,9 +42,12 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 			boton.setActionCommand(usuario[i]);
 			boton.setPreferredSize(new Dimension(400, 50));
 			boton.addActionListener(this);
-			contenedor.add(boton);
-			
+			contenedor.add(boton);			
 		}		
+		
+		if(this.usuario.length==0){
+			contenedor.add(new JLabel("No hay partidas guardadas actualmente, seleccione 'Crear Nueva Partida'"));
+		}
 		
 		JLabel titulo=new JLabel("Selecciona una partida");
 		Font myFont= new Font ("Comic Sans MS",1,22);		

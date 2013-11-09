@@ -57,7 +57,7 @@ public class Niveles extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters            
+        g.drawImage(image, 0, 0, null); // see javadoc for morye info on the parameters            
     }
 
 	@Override
