@@ -38,7 +38,7 @@ import javax.swing.SwingConstants;
 public class Juego extends JPanel implements ActionListener{
 
     private BufferedImage imgNum, imgNum2, imgNum3, imgNum4, imgSig, imgInt, imgCor;
-    private int num1, num2, num3, num4, coor1, coor2, coor3, coor4, coor5, puntuacion, maxNum1, maxNum2, maxNum3;
+    private int num1, num2, num3, num4, coor1, coor2, coor3, coor4, coor5, puntuacion, maxNum1, maxNum2, maxNum3, repeticiones = 0;
     private String dificultad = "", strNum1, strNum2, strNum3, strNum4;
     public JTextField respUsr;
     public JButton enviar, reIniciar;
@@ -62,15 +62,15 @@ public class Juego extends JPanel implements ActionListener{
     }
 
     public void generarNumeros(){
-        this.num1 = (int)Math.round((Math.random()*(this.maxNum1)+1));
-        this.num2 = (int)Math.round((Math.random()*(this.maxNum2)+1));
-        this.num3 = (int)Math.round((Math.random()*(this.maxNum3)+1));
-        this.num4 = (int)Math.round((Math.random()*(this.maxNum3)+1));
-        if(this.dificultad == "Sencillo" || this.dificultad == "Principiante"){
+        this.num1 = (int)Math.round((Math.random()*(this.maxNum1)));
+        this.num2 = (int)Math.round((Math.random()*(this.maxNum2)));
+        this.num3 = (int)Math.round((Math.random()*(this.maxNum3)));
+        this.num4 = (int)Math.round((Math.random()*(this.maxNum3)));
+        /*if(this.dificultad == "Sencillo" || this.dificultad == "Principiante"){
             System.out.println(this.num1 + ", " + this.num2 + " = " + (this.num1 + this.num2));
         }else{
             System.out.println(this.num1*10 + ", " + this.num2*10 + ", " + this.num3 + ", " + this.num4 + " = " + ((this.num1*10) + (this.num2*10) + this.num3 + this.num4));
-        }
+        }*/
         this.strNum1 = "./Numeros/" + (Integer.toString(this.num1)) + ".png";
         this.strNum2 = "./Numeros/" + (Integer.toString(this.num2)) + ".png";
         this.strNum3 = "./Numeros/" + (Integer.toString(this.num3)) + ".png";
@@ -78,6 +78,9 @@ public class Juego extends JPanel implements ActionListener{
     }
 
     public void pintarJuego(){
+        this.maxNum1 = 9;
+        this.maxNum2 = 9;
+        int cantidad;
         if(this.puntuacion == 0){
             respUsr = new JTextField(5);
             respUsr.addActionListener(this);
@@ -97,8 +100,6 @@ public class Juego extends JPanel implements ActionListener{
                 this.coor3 = 345;
                 this.coor4 = 200000;
                 this.coor5 = 200000;
-                this.maxNum1 = 8;
-                this.maxNum2 = 8;
                 this.maxNum3 = 0;
                 do{
                     generarNumeros();
@@ -106,8 +107,8 @@ public class Juego extends JPanel implements ActionListener{
 
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
-                this.imgNum3 = ImageIO.read(new File(this.strNum3));
-                this.imgNum4 = ImageIO.read(new File(this.strNum4));
+                //this.imgNum3 = ImageIO.read(new File(this.strNum3));
+                //this.imgNum4 = ImageIO.read(new File(this.strNum4));
                 this.imgSig = ImageIO.read(new File("./Numeros/+.png"));
             }catch(IOException ex){
                 System.out.println("Error con la Imagen: " + ex);
@@ -119,12 +120,15 @@ public class Juego extends JPanel implements ActionListener{
                 this.coor3 = 345;
                 this.coor4 = 240;
                 this.coor5 = 445;
-                this.maxNum1 = 8;
-                this.maxNum2 = 8;
-                this.maxNum3 = 1;
+                this.maxNum3 = 0;
                 do{
                     generarNumeros();
-                }while((this.num1 + this.num2) > 10 && (this.num1 + this.num2) < 20);
+                    cantidad = this.num1 + this.num2;
+                    if(cantidad < 20 && cantidad > 10){
+                        break;
+                    }
+                }while(true);
+                System.out.println("final" + cantidad);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 //this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -140,12 +144,14 @@ public class Juego extends JPanel implements ActionListener{
                 this.coor3 = 345;
                 this.coor4 = 240;
                 this.coor5 = 570;
-                this.maxNum1 = 8;
-                this.maxNum2 = 8;
-                this.maxNum3 = 2;
+                this.maxNum3 = 9;
                 do{
                     generarNumeros();
-                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 20 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 30);
+                    cantidad = (this.num1*10) + (this.num2*10) + this.num3 + this.num4;
+                    if(cantidad < 30 && cantidad > 20){
+                        break;
+                    }
+                }while(true);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -161,12 +167,14 @@ public class Juego extends JPanel implements ActionListener{
                 this.coor3 = 345;
                 this.coor4 = 240;
                 this.coor5 = 570;
-                this.maxNum1 = 8;
-                this.maxNum2 = 8;
-                this.maxNum3 = 3;
+                this.maxNum3 = 9;
                 do{
                     generarNumeros();
-                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 30 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 40);
+                    cantidad = (this.num1*10) + (this.num2*10) + this.num3 + this.num4;
+                    if(cantidad < 40 && cantidad > 30){
+                        break;
+                    }
+                }while(true);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -182,12 +190,14 @@ public class Juego extends JPanel implements ActionListener{
                 this.coor3 = 345;
                 this.coor4 = 240;
                 this.coor5 = 445;
-                this.maxNum1 = 8;
-                this.maxNum2 = 8;
-                this.maxNum3 = 4;
+                this.maxNum3 = 9;
                 do{
                     generarNumeros();
-                }while(((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) > 40 && ((this.num1 * 10) + (this.num2 * 10) + this.num3 + this.num4) < 50);
+                    cantidad = (this.num1*10) + (this.num2*10) + this.num3 + this.num4;
+                    if(cantidad < 50 && cantidad > 40){
+                        break;
+                    }
+                }while(true);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -254,9 +264,9 @@ public class Juego extends JPanel implements ActionListener{
 
                 System.out.println("Correcto, la respuesta es " + (this.num1 + this.num2) + " y tu puntuacion es de " + this.puntuacion);
                 System.out.println();
-                Font myFont= new Font ("Comic Sans MS",1,22);
-                JLabel texto1=new JLabel("asdasdasdasd");
-                texto1.setFont(myFont);
+                //Font myFont= new Font ("Comic Sans MS",1,22);
+                //JLabel texto1=new JLabel("asdasdasdasd");
+                //texto1.setFont(myFont);
                 //this.add(texto1);
                 //this.repaint();
                 this.respuestaCorrecta = true;
@@ -300,10 +310,15 @@ public class Juego extends JPanel implements ActionListener{
             }
         }else if(e.getSource() == reIniciar){
             respUsr.setText(null);
+            this.repeticiones = this.repeticiones + 1;
             System.out.println("Siguiente Pregunta!");
             System.out.println();
             remove(reIniciar);
-            pintarJuego();
+            if(this.repeticiones > 11){
+                //juego terminado
+            }else{
+                pintarJuego();
+            }
             this.repaint();
             this.respuestaCorrecta = false;
         }

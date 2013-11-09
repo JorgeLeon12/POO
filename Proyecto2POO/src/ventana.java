@@ -17,7 +17,7 @@ public class ventana extends JFrame{
 
 		Niveles panel=new Niveles();
 		this.add(panel);
-		repaint();
+		repaint();	
 	}
 
 	public void actualizar(){
