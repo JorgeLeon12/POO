@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,8 +19,10 @@ import javax.swing.SwingConstants;
 
 public class Inicio extends JPanel implements ActionListener{
         String texto="Hola, Bienvenido a Matem√°ticas, como nuevo jugador comenzar√°s en el nivel de principiante, seg√∫n tu Score podr√°s subir de nivel";
-        JButton guardar, cancelar;
+        JButton guardar, cancelar, aceptar;
         JTextField usuario;
+        ventana ventana;
+        JDialog dialogo;
 
         public Inicio(){
                 super();                
@@ -33,7 +37,9 @@ public class Inicio extends JPanel implements ActionListener{
                 JLabel texto2=new JLabel("Escribe tu nombre:");
                 guardar=new JButton("Jugar");
                 cancelar=new JButton("Cancelar");
-
+                aceptar=new JButton("Aceptar");
+                
+                aceptar.addActionListener(this);
                 guardar.addActionListener(this);
                 cancelar.addActionListener(this);
 
@@ -77,21 +83,47 @@ public class Inicio extends JPanel implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-                JPanel panel=new JPanel();                
+                JPanel panel=new JPanel();
+                JPanel advertencia=new JPanel();  
+                advertencia.setLayout(new FlowLayout(FlowLayout.CENTER,100,10));
+                
                 if(e.getSource()==guardar){
                         String usuario=this.usuario.getText();
-                        this.guardarUs(usuario);
-//                        JDialog dialogo=new JDialog(ventana.getFrames(),"¬°Exito!",true);
-//                        dialogo.setModal(true);
-//                        this.add(dialogo);
-                        panel=new Juego();
+                        if(usuario.equals("")){
+                        	dialogo=new JDialog(this.ventana,"°Error!");                
+  	                        dialogo.setModal(true);
+  		                    advertencia.add(new JLabel("Por favor especifique un nombre"));
+  		                    advertencia.add(this.aceptar);
+  		                    dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,270,110);
+  		                    dialogo.add(advertencia);
+  	                        dialogo.setAlwaysOnTop(true);
+  	                        dialogo.setVisible(true);
+                        }
+                        else{                        	
+	                        this.guardarUs(usuario);
+	                        dialogo=new JDialog(this.ventana,"°…xito!");                
+	                        dialogo.setModal(true);
+		                    advertencia.add(new JLabel("°Partida Creada!"));
+		                    advertencia.add(this.aceptar);
+		                    dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,270,110);
+		                    dialogo.add(advertencia);
+	                        dialogo.setAlwaysOnTop(true);
+	                        dialogo.setVisible(true);
+	                        panel=new Juego();
+	                        
+	                        this.getParent().add(panel);
+	                        this.getParent().remove(this);
+	                        panel.getParent().validate();
+	                    }
                 }
                 if(e.getSource()==cancelar){
                         panel=new PanelControl();
-                        
+                        this.getParent().add(panel);
+                        this.getParent().remove(this);
+                        panel.getParent().validate();                        
                 }
-                this.getParent().add(panel);
-                this.getParent().remove(this);
-                panel.getParent().validate();
+                if(e.getSource()==aceptar){
+                dialogo.dispose();	
+                }
         }
 }
