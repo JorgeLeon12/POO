@@ -28,27 +28,23 @@ import java.io.FileReader;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import java.awt.Frame;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 public class Juego extends JPanel implements ActionListener{
 
-	private BufferedImage imgNum, imgNum2, imgSig, imgInt, imgIgu;
+	private BufferedImage imgNum, imgNum2, imgSig, imgInt, imgCor;
 	private int num1, num2, coor1, coor2, coor3, puntuacion;
-	private String dificultad = "";
+	private String dificultad = "", strNum1, strNum2;
 	public JTextField respUsr;
-	public JButton enviar;
-	public JLabel labelPoint;
+	public JButton enviar, reIniciar;
 
 	public Juego(){
 		super();
-		this.setLayout(null);
-		
-
-		this.setLayout(new BorderLayout());
-		JPanel preguntas=new JPanel();
-
-		preguntas.setPreferredSize(new Dimension(800,50));
-		preguntas.setLayout(new FlowLayout());
-		//preguntas.add(titulo);
-		this.add(preguntas, BorderLayout.SOUTH);
 	}
 	
 	public void setDificultad(String valor){
@@ -64,21 +60,20 @@ public class Juego extends JPanel implements ActionListener{
 		pintarJuego();
 	}
 
-	public void pintarJuego(){
+	public void generarNumeros(){
 		this.num1 = (int)Math.round((Math.random()*8+1));
 		this.num2 = (int)Math.round((Math.random()*8+1));
-		String strNum1 = "./Numeros/" + (Integer.toString(num1)) + ".png";
-		String strNum2 = "./Numeros/" + (Integer.toString(num2)) + ".png";
-
-		labelPoint = new JLabel("Tu puntacion actual es de " + this.puntuacion);
-		this.add(labelPoint);
+		this.strNum1 = "./Numeros/" + (Integer.toString(this.num1)) + ".png";
+		this.strNum2 = "./Numeros/" + (Integer.toString(this.num2)) + ".png";
+	}
+	public void pintarJuego(){
 		if(this.puntuacion == 0){
 			respUsr = new JTextField(5);
 			respUsr.addActionListener(this);
 			respUsr.setLocation(2000,2000);
 			this.add(respUsr);
 
-			enviar=new JButton("Validar!");
+			enviar = new JButton("Validar!");
 			enviar.addActionListener(this);
 			enviar.setBounds(690,530,100,30);
 			this.add(enviar);
@@ -91,11 +86,14 @@ public class Juego extends JPanel implements ActionListener{
 				this.coor1 = 240;
 				this.coor2 = 455;
 				this.coor3 = 345;
-				this.imgNum = ImageIO.read(new File(strNum1));
-				this.imgNum2 = ImageIO.read(new File(strNum2));
+				do{
+					generarNumeros();
+				}while((this.num1 + this.num2) > 10);
+				this.imgNum = ImageIO.read(new File(this.strNum1));
+				this.imgNum2 = ImageIO.read(new File(this.strNum2));
 				this.imgSig = ImageIO.read(new File("./Numeros/+.png"));
 			}catch(IOException ex){
-				System.out.println("Error con la Imagenb");
+				System.out.println("Error con la Imagen: " + ex);
 			}
 		}else if(dificultad == "Retador"){//----------------------------------Retador----------------------------------------------
 			System.out.println(dificultad);
@@ -103,11 +101,12 @@ public class Juego extends JPanel implements ActionListener{
 				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
-				imgNum = ImageIO.read(new File(strNum1));
-				imgNum2 = ImageIO.read(new File(strNum2));
+				generarNumeros();
+				imgNum = ImageIO.read(new File(this.strNum1));
+				imgNum2 = ImageIO.read(new File(this.strNum2));
 				imgSig = ImageIO.read(new File("./Numeros/+.png"));
 			}catch(IOException ex){
-				System.out.println("Error con la Imagen");
+				System.out.println("Error con la Imagen: " + ex);
 			}
 		}else if(dificultad == "Avanzado"){//----------------------------------Avanzado----------------------------------------------
 			System.out.println(dificultad);
@@ -115,11 +114,12 @@ public class Juego extends JPanel implements ActionListener{
 				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
-				imgNum = ImageIO.read(new File(strNum1));
-				imgNum2 = ImageIO.read(new File(strNum2));
+				generarNumeros();
+				imgNum = ImageIO.read(new File(this.strNum1));
+				imgNum2 = ImageIO.read(new File(this.strNum2));
 				imgSig = ImageIO.read(new File("./Numeros/+.png"));
 			}catch(IOException ex){
-				System.out.println("Error con la Imagen");
+				System.out.println("Error con la Imagen: " + ex);
 			}
 		}else if(dificultad == "DIOS"){//----------------------------------OH GOD WHY!?----------------------------------------------
 			System.out.println(dificultad);
@@ -127,12 +127,21 @@ public class Juego extends JPanel implements ActionListener{
 				coor1 = 240;
 				coor2 = 455;
 				coor3 = 345;
-				imgNum = ImageIO.read(new File(strNum1));
-				imgNum2 = ImageIO.read(new File(strNum2));
+				generarNumeros();
+				imgNum = ImageIO.read(new File(this.strNum1));
+				imgNum2 = ImageIO.read(new File(this.strNum2));
 				imgSig = ImageIO.read(new File("./Numeros/+.png"));
 			}catch(IOException ex){
-				System.out.println("Error con la Imagen");
+				System.out.println("Error con la Imagen: " + ex);
 			}
+		}
+    }
+
+    public void imgCorrecto(boolean corOInco){
+    	try{
+			imgCor = ImageIO.read(new File("./Numeros/c.png"));
+		}catch(IOException ex){
+			System.out.println("Error con la Imagen: " + ex);
 		}
     }
     public void validarRespuesta(int respuestaUsuario){
@@ -142,9 +151,21 @@ public class Juego extends JPanel implements ActionListener{
     		if((this.num1 + this.num2) == respuestaUsuario){
     			this.puntuacion = this.puntuacion + 10;
     			System.out.println("Correcto, la respuesta es " + (this.num1+this.num2) + " y tu puntuacion es de " + this.puntuacion);
-    			respUsr.setText(null);
-    			pintarJuego();
-    			this.repaint();
+				Font myFont= new Font ("Comic Sans MS",1,22);
+				JLabel texto1=new JLabel("asdasdasdasd");
+				texto1.setFont(myFont);
+				this.add(texto1);
+    			/*try{
+    				Thread.sleep(5000);
+    			}catch(InterruptedException e){
+    				System.out.println(e);
+    			}*/
+
+    			this.reIniciar = new JButton("Siguiente!");
+				this.reIniciar.addActionListener(this);
+				this.reIniciar.setBounds(690,530,100,30);
+				this.add(reIniciar);
+				this.repaint();
     		}else{
     			System.out.println("incorrecto");
     		}
@@ -158,13 +179,20 @@ public class Juego extends JPanel implements ActionListener{
         g.drawImage(this.imgNum, this.coor1, 250, null);
        	g.drawImage(this.imgNum2, this.coor2, 250, null);
        	g.drawImage(this.imgSig, this.coor3, 250, null);
+
+       	g.drawString("Tu puntacion actual es de " + this.puntuacion,10,10);
     }
 	@Override
 	public void actionPerformed(ActionEvent e){
-		System.out.println(this.respUsr.getText() + " respUsr");
-		String respuestaUsuario = this.respUsr.getText();
-		System.out.println(respuestaUsuario + " respuestaUsuario");
-		
-		validarRespuesta(Integer.parseInt((respuestaUsuario)));
+		if(e.getSource() == enviar || e.getSource() == respUsr){
+			//System.out.println(this.respUsr.getText() + " respUsr");
+			String respuestaUsuario = this.respUsr.getText();
+			//System.out.println(respuestaUsuario + " respuestaUsuario");
+			respUsr.setText(null);
+			validarRespuesta(Integer.parseInt((respuestaUsuario)));
+		}else if(e.getSource() == reIniciar){
+			pintarJuego();
+			this.repaint();
+		}
 	}
 }
