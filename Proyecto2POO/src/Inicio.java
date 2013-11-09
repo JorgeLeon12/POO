@@ -1,13 +1,14 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,10 +21,15 @@ public class Inicio extends JPanel implements ActionListener{
 	JTextField usuario;
 
 	public Inicio(){
-		super();
-		this.setLayout(null);
+		super();		
+		this.setLayout(new BorderLayout());
+		JPanel superior=new JPanel();
+		JPanel contenedor=new JPanel();
+		JPanel inferior=new JPanel();
+		inferior.setLayout(new FlowLayout(FlowLayout.RIGHT,10,10));
+				
 		Font myFont= new Font ("Comic Sans MS",1,22);
-		JLabel texto1=new JLabel("Juego Nuevo");
+		JLabel titulo=new JLabel("Juego Nuevo");
 		JLabel texto2=new JLabel("Escribe tu nombre:");
 		guardar=new JButton("Jugar");
 		cancelar=new JButton("Cancelar");
@@ -34,20 +40,23 @@ public class Inicio extends JPanel implements ActionListener{
 		guardar.setBounds(350,350,100,40);
 		cancelar.setBounds(690,530,100,30);
 
-		texto1.setFont(myFont);
-		texto1.setBounds(340, 10, 200, 50);
+		titulo.setFont(myFont);
+		titulo.setBounds(340, 10, 200, 50);
 		texto2.setBounds(340,250,200,50);
 
 		usuario=new JTextField(10);
 		usuario.setBounds(300,300,200,30);
 		usuario.setFont(myFont);
 		usuario.setHorizontalAlignment(SwingConstants.CENTER);
-
-		this.add(texto1);
-		this.add(texto2);
-		this.add(usuario);
-		this.add(guardar);
-		this.add(cancelar);
+		
+		superior.add(titulo);
+		contenedor.add(texto2);
+		contenedor.add(usuario);
+		contenedor.add(guardar);
+		inferior.add(cancelar);
+		this.add(superior, BorderLayout.NORTH);
+		this.add(contenedor, BorderLayout.CENTER);
+		this.add(inferior, BorderLayout.SOUTH);
 	}
 	
 	public void guardarUs(String usuario){
