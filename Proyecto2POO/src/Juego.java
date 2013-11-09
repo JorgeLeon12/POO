@@ -66,7 +66,11 @@ public class Juego extends JPanel implements ActionListener{
         this.num2 = (int)Math.round((Math.random()*(this.maxNum2)+1));
         this.num3 = (int)Math.round((Math.random()*(this.maxNum3)+1));
         this.num4 = (int)Math.round((Math.random()*(this.maxNum3)+1));
-        System.out.println(this.num1 + ", " + this.num2 + ", " + this.num3 + ", " + this.num4);
+        if(this.dificultad == "Sencillo" || this.dificultad == "Principiante"){
+            System.out.println(this.num1 + ", " + this.num2 + " = " + (this.num1 + this.num2));
+        }else{
+            System.out.println(this.num1*10 + ", " + this.num2*10 + ", " + this.num3 + ", " + this.num4 + " = " + ((this.num1*10) + (this.num2*10) + this.num3 + this.num4));
+        }
         this.strNum1 = "./Numeros/" + (Integer.toString(this.num1)) + ".png";
         this.strNum2 = "./Numeros/" + (Integer.toString(this.num2)) + ".png";
         this.strNum3 = "./Numeros/" + (Integer.toString(this.num3)) + ".png";
@@ -86,7 +90,7 @@ public class Juego extends JPanel implements ActionListener{
             this.add(enviar);
         }
 
-        if(this.dificultad == "Principiante"){
+        if(this.dificultad == "Principiante"){//----------------------------------Principiante----------------------------------------------
             try{
                 this.coor1 = 240;
                 this.coor2 = 455;
@@ -120,7 +124,7 @@ public class Juego extends JPanel implements ActionListener{
                 this.maxNum3 = 1;
                 do{
                     generarNumeros();
-                }while((this.num1 + this.num2) < 10 || (this.num1 + this.num2) > 20);
+                }while((this.num1 + this.num2) > 10 && (this.num1 + this.num2) < 20);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 //this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -141,7 +145,7 @@ public class Juego extends JPanel implements ActionListener{
                 this.maxNum3 = 2;
                 do{
                     generarNumeros();
-                }while((this.num1 + this.num2 + this.num3 + this.num4) < 20 || (this.num1 + this.num2) > 30);
+                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 20 && (this.num1 + this.num2) < 30);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -152,17 +156,17 @@ public class Juego extends JPanel implements ActionListener{
             }
         }else if(dificultad == "Avanzado"){//----------------------------------Avanzado----------------------------------------------
             try{
-                this.coor1 = 240;
+                this.coor1 = 135;
                 this.coor2 = 455;
                 this.coor3 = 345;
                 this.coor4 = 240;
-                this.coor5 = 445;
+                this.coor5 = 570;
                 this.maxNum1 = 8;
                 this.maxNum2 = 8;
                 this.maxNum3 = 3;
                 do{
                     generarNumeros();
-                }while((this.num1 + this.num2 + this.num3 + this.num4) < 30 || (this.num1 + this.num2) > 40);
+                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 30 && ((this.num1*10) + (this.num2*10) + this.num3 + this.num4) < 40);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -183,7 +187,7 @@ public class Juego extends JPanel implements ActionListener{
                 this.maxNum3 = 4;
                 do{
                     generarNumeros();
-                }while((this.num1 + this.num2 + this.num3 + this.num4) < 40 || (this.num1 + this.num2) > 50);
+                }while(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) > 40 && ((this.num1*10) + (this.num2*10) + this.num3 + this.num4) < 50);
                 this.imgNum = ImageIO.read(new File(this.strNum1));
                 this.imgNum2 = ImageIO.read(new File(this.strNum2));
                 this.imgNum3 = ImageIO.read(new File(this.strNum3));
@@ -233,7 +237,7 @@ public class Juego extends JPanel implements ActionListener{
                     System.out.println("incorrecto");
             }
         }else{
-            if((this.num1 + this.num2) == respuestaUsuario){
+            if(((this.num1*10) + (this.num2*10) + this.num3 + this.num4) == respuestaUsuario){
                this.puntuacion = this.puntuacion + 10;
 
                 /*try{
@@ -274,6 +278,7 @@ public class Juego extends JPanel implements ActionListener{
         g.drawImage(this.imgSig, this.coor3, 250, null);
 
         g.drawString("Tu puntacion actual es de " + this.puntuacion,10,10);
+        g.drawString("Dificultad Actual: " + this.dificultad,10,35);
     }
     @Override
     public void actionPerformed(ActionEvent e){
