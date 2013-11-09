@@ -8,7 +8,7 @@ public class ventana extends JFrame{
 	public ventana(){
 		super("Matematicas");
 		this.setSize(new Dimension(800,600));
-//		this.setResizable(false);
+		this.setMinimumSize(new Dimension(750,550));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
