@@ -61,13 +61,16 @@ public class Inicio extends JPanel implements ActionListener{
         
         public void guardarUs(String usuario){
                 try {
-                        String archivo=new File("").getAbsolutePath()+"//src//JuegosGuardados//"+usuario+".txt";
+                        String archivo=new File("").getAbsolutePath()+"//JuegosGuardados//"+usuario+".txt";
                         PrintWriter escritor=new PrintWriter(new FileWriter(archivo));
                         escritor.println(""+usuario);
                         escritor.println(0);
                         escritor.close();
                 } catch (IOException e) {
-                        e.printStackTrace();
+                        File carpeta =new File(".//JuegosGuardados");
+                        carpeta.mkdirs();
+                        this.guardarUs(usuario);
+                        
                 }
         }
 
