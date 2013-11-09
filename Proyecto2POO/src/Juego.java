@@ -150,11 +150,7 @@ public class Juego extends JPanel implements ActionListener{
     	}else{
     		if((this.num1 + this.num2) == respuestaUsuario){
     			this.puntuacion = this.puntuacion + 10;
-    			System.out.println("Correcto, la respuesta es " + (this.num1+this.num2) + " y tu puntuacion es de " + this.puntuacion);
-				Font myFont= new Font ("Comic Sans MS",1,22);
-				JLabel texto1=new JLabel("asdasdasdasd");
-				texto1.setFont(myFont);
-				this.add(texto1);
+    			
     			/*try{
     				Thread.sleep(5000);
     			}catch(InterruptedException e){
@@ -165,6 +161,13 @@ public class Juego extends JPanel implements ActionListener{
 				this.reIniciar.addActionListener(this);
 				this.reIniciar.setBounds(690,530,100,30);
 				this.add(reIniciar);
+				this.repaint();
+
+				System.out.println("Correcto, la respuesta es " + (this.num1 + this.num2) + " y tu puntuacion es de " + this.puntuacion);
+				Font myFont= new Font ("Comic Sans MS",1,22);
+				JLabel texto1=new JLabel("asdasdasdasd");
+				texto1.setFont(myFont);
+				this.add(texto1);
 				this.repaint();
     		}else{
     			System.out.println("incorrecto");
@@ -191,6 +194,7 @@ public class Juego extends JPanel implements ActionListener{
 			respUsr.setText(null);
 			validarRespuesta(Integer.parseInt((respuestaUsuario)));
 		}else if(e.getSource() == reIniciar){
+			remove(reIniciar);
 			pintarJuego();
 			this.repaint();
 		}
