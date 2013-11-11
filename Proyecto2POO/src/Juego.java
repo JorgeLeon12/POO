@@ -41,7 +41,7 @@ public class Juego extends JPanel implements ActionListener{
     private int num1, num2, num3, num4, coor1, coor2, coor3, coor4, coor5, puntuacion, maxNum1, maxNum2, maxNum3, repeticiones = 0;
     private String dificultad = "", strNum1, strNum2, strNum3, strNum4;
     public JTextField respUsr;
-    public JButton enviar, reIniciar;
+    public JButton enviar, reIniciar, botCancelar;
     public boolean respuestaCorrecta;
 
     public Juego(){
@@ -91,6 +91,11 @@ public class Juego extends JPanel implements ActionListener{
             enviar.addActionListener(this);
             enviar.setBounds(690,530,100,30);
             this.add(enviar);
+
+            botCancelar = new JButton("Cancelar");
+            botCancelar.addActionListener(this);
+            botCancelar.setBounds(590,430,000,30);
+            this.add(botCancelar);
         }
 
         if(this.dificultad == "Principiante"){//----------------------------------Principiante----------------------------------------------
@@ -237,10 +242,8 @@ public class Juego extends JPanel implements ActionListener{
                 System.out.println("Correcto, la respuesta es " + (this.num1 + this.num2) + " y tu puntuacion es de " + this.puntuacion);
                 System.out.println();
                 Font myFont= new Font ("Comic Sans MS",1,22);
-                JLabel texto1=new JLabel("asdasdasdasd");
-                texto1.setFont(myFont);
-                //this.add(texto1);
-                //this.repaint();
+                
+
                 this.respuestaCorrecta = true;
             }else{
                     respUsr.setText(null);
@@ -264,17 +267,22 @@ public class Juego extends JPanel implements ActionListener{
 
                 System.out.println("Correcto, la respuesta es " + (this.num1 + this.num2) + " y tu puntuacion es de " + this.puntuacion);
                 System.out.println();
-                //Font myFont= new Font ("Comic Sans MS",1,22);
-                //JLabel texto1=new JLabel("asdasdasdasd");
-                //texto1.setFont(myFont);
-                //this.add(texto1);
-                //this.repaint();
+                
+
                 this.respuestaCorrecta = true;
             }else{
                     respUsr.setText(null);
                     System.out.println("incorrecto");
             }
         }
+    }
+
+    public void clickCanselar(){
+        JPanel panel=new JPanel();
+        panel=new Niveles();
+        this.getParent().add(panel);
+        this.getParent().remove(this);
+        panel.getParent().validate();
     }
 
     @Override
@@ -295,18 +303,27 @@ public class Juego extends JPanel implements ActionListener{
         if(e.getSource() == enviar || e.getSource() == respUsr){
             if(this.respuestaCorrecta == false){
                 //System.out.println(this.respUsr.getText() + " respUsr");
-                String respuestaUsuario = this.respUsr.getText();//<----------------------------- aqui falta un CATCH para si el usuario no captura un INT o no da ningun valor
+                //Character.isDigit('3')
+               // String respuestaUsuario = this.respUsr.getText();//<----------------------------- aqui falta un CATCH para si el usuario no captura un INT o no da ningun valor
                 //System.out.println(respuestaUsuario + " respuestaUsuario");
+                //      System.out.println(Character.isDigit('5'));
 
-                validarRespuesta(Integer.parseInt((respuestaUsuario)));
+                //boolean esNumero = ;
+                int respuestaUsuario = Integer.parseInt(this.respUsr.getText());
+                validarRespuesta(respuestaUsuario);
             }else{
-                respUsr.setText(null);
-                System.out.println("Siguiente Pregunta!");
-                System.out.println();
-                remove(reIniciar);
+            respUsr.setText(null);
+            this.repeticiones = this.repeticiones + 1;
+            System.out.println("Siguiente Pregunta!");
+            System.out.println();
+            remove(reIniciar);
+            if(this.repeticiones > 2){
+                clickCanselar();
+            }else{
                 pintarJuego();
-                this.repaint();
-                this.respuestaCorrecta = false;
+            }
+            this.repaint();
+            this.respuestaCorrecta = false;
             }
         }else if(e.getSource() == reIniciar){
             respUsr.setText(null);
@@ -314,13 +331,15 @@ public class Juego extends JPanel implements ActionListener{
             System.out.println("Siguiente Pregunta!");
             System.out.println();
             remove(reIniciar);
-            if(this.repeticiones > 11){
-                //juego terminado
+            if(this.repeticiones > 2){
+                clickCanselar();
             }else{
                 pintarJuego();
             }
             this.repaint();
             this.respuestaCorrecta = false;
+        }else if(e.getSource() == botCancelar){
+            clickCanselar();
         }
     }
 }
