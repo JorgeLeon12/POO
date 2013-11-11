@@ -34,7 +34,7 @@ class PanelControl extends JPanel implements ActionListener{
 		niveles=new JButton("Niveles");
 		
 		try {
-			img= ImageIO.read(new File(".//Imagenes//logo.jpg"));
+			img= ImageIO.read(new File(".//Imagenes//logo.png"));
 		} catch (IOException e) {
 			System.out.println("Error, imagen no encontrada");
 		}
