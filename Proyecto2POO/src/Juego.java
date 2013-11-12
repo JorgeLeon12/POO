@@ -315,7 +315,7 @@ public class Juego extends JPanel implements ActionListener{
                 if(e.getSource()==aceptar){
                         dialogo.dispose();
                         if(this.usuario!="Partida Rápida"){
-                        	GuardarPartida partida=new GuardarPartida();
+                        	GuardarPartida partida=new GuardarPartida(this.usuario,this.dificultad,this.puntuacion);
                         }
                         panel=new PartidaTerminada();
                         this.getParent().add(panel);
