@@ -75,6 +75,9 @@ class PanelControl extends JPanel implements ActionListener{
 		if(e.getSource()==this.continuar){
 			panel=new ContinuarJuego();
 		}		
+		if(e.getSource()==this.instrucciones){
+			panel=new Instrucciones();
+		}
 		this.getParent().add(panel);
 		this.getParent().remove(this);
 		panel.getParent().validate();
