@@ -148,16 +148,16 @@ public class Juego extends JPanel implements ActionListener{
                         g.setColor(Color.WHITE);
                         g.drawString("Dificultad:",this.getWidth()/2-75 , 30);        
                         myFont=new Font("Comic Sans MS",1,30);
-                        if(this.dificultad=="sencillo"){
+                        if(this.dificultad.equals("sencillo")){
                                 g.setColor(Color.BLUE);
                         }
-                        if(this.dificultad=="facil"){
+                        if(this.dificultad.equals("facil")){
                                 g.setColor(Color.GREEN);
                         }
-                        if(this.dificultad=="retador"){
+                        if(this.dificultad.equals("retador")){
                                 g.setColor(Color.ORANGE);
                         }
-                        if(this.dificultad=="dificil"){
+                        if(this.dificultad.equals("dificil")){
                                 g.setColor(Color.RED);
                         }
                         g.drawString(this.dificultad.toUpperCase(), this.getWidth()/2-75, 60);
@@ -213,19 +213,56 @@ public class Juego extends JPanel implements ActionListener{
         public void validar(int num1, int num2, JTextField respUsr) {
                 int respuesta=Integer.parseInt(respUsr.getText());
                 if((num1+num2)==respuesta){
-                		this.puntuacion+=10;
+                		this.puntuacion+=10;                		
+                		this.nuevoNivel();
                 		this.numerosRandom(this.dificultad);
+                		System.out.println(this.num1+" "+this.num2);
                 		this.lienzo.setNumeros(this.num1,this.num2);
-                		this.tablero.setPuntaje(this.puntuacion);
-                		this.lienzo.repaint();
-                		this.tablero.repaint();    
-      
-                        System.out.println("Correcto!");
-                       
+                		this.rePintar();
+                		panel=new validador(this.lienzo, "correcto");
+                }                
+                else{
+                	if(this.puntuacion>0){
+                		this.puntuacion-=10;
+                	}
+                	panel=new validador(this.lienzo, "incorrecto");
+                	this.nuevoNivel();        			   
                 }
-                
+                this.tablero.setPuntaje(this.puntuacion);
+                this.add(panel, BorderLayout.CENTER);
+    			this.remove(this.lienzo);
+    			panel.getParent().validate();
+    			this.rePintar();   
         }
-
+        
+        public void rePintar(){
+        	this.numerosRandom(this.dificultad);
+    		this.lienzo.setNumeros(this.num1,this.num2);
+    		this.tablero.setPuntaje(this.puntuacion);
+    		this.lienzo.repaint();
+    		this.tablero.repaint();            	
+        }
+        
+        public void nuevoNivel(){
+        	if(puntuacion<=100){
+        		this.dificultad="Sencillo";
+        	}else{
+        		if(puntuacion<=200){
+        			this.dificultad="facil";
+        		}
+        		else
+        		{
+        			if(puntuacion<=300){
+        				this.dificultad="retador";
+        			}
+        			else{
+        				if(puntuacion>=400){
+        					this.dificultad="dificl";
+        				}
+        			}
+        		}
+        	}
+        }
 
         public class pintarJuego extends JPanel{
                 int unidad, unidad2, decena, decena2;
@@ -328,7 +365,7 @@ public class Juego extends JPanel implements ActionListener{
                         if(this.usuario!="Partida Rápida"){
                         	GuardarPartida partida=new GuardarPartida(this.usuario,this.dificultad,this.puntuacion);
                         }
-                        panel=new PartidaTerminada();
+                        panel=new PartidaTerminada(this.puntuacion);
                         this.getParent().add(panel);
                         this.getParent().remove(this);
                         panel.getParent().validate();
