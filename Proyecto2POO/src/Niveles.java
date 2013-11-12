@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Niveles extends JPanel implements ActionListener {
-	JButton principiante, facil, medio, dificil, cancelar;
+	JButton sencillo, facil, retador, dificil, cancelar;
 	JPanel panel;
 
 	private BufferedImage image;
@@ -29,29 +29,33 @@ public class Niveles extends JPanel implements ActionListener {
 	
 		superior.setPreferredSize(new Dimension(800,50));
 		inferior.setPreferredSize(new Dimension(800,50));		
-		JLabel titulo=new JLabel("Selecciona una partida");
+		JLabel titulo=new JLabel("Selecciona una dificultad");
 		titulo.setFont(myFont);
-		principiante=new JButton("Principiante");
-		facil=new JButton("Sencillo");
-		medio=new JButton("Retador");
-		dificil=new JButton("Avanzado");
+		sencillo=new JButton("Sencillo");
+		facil=new JButton("Facil");
+		retador=new JButton("Retador");
+		dificil=new JButton("Difícil");
 		cancelar=new JButton("Cancelar");
+		sencillo.setActionCommand("sencillo");
+		facil.setActionCommand("facil");
+		retador.setActionCommand("retador");
+		dificil.setActionCommand("dificil");		
 		
-		principiante.setPreferredSize(new Dimension(200,30));
+		sencillo.setPreferredSize(new Dimension(200,30));
 		facil.setPreferredSize(new Dimension(200,30));
-		medio.setPreferredSize(new Dimension(200,30));
+		retador.setPreferredSize(new Dimension(200,30));
 		dificil.setPreferredSize(new Dimension(200,30));
 		cancelar.setPreferredSize(new Dimension(200,30));
 
-		principiante.addActionListener(this);
+		sencillo.addActionListener(this);
 		facil.addActionListener(this);
-		medio.addActionListener(this);
+		retador.addActionListener(this);
 		dificil.addActionListener(this);
 		cancelar.addActionListener(this);
 		
-		contenedor.add(principiante);
+		contenedor.add(sencillo);
 		contenedor.add(facil);
-		contenedor.add(medio);
+		contenedor.add(retador);
 		contenedor.add(dificil);
 		inferior.add(cancelar);
 		superior.add(titulo);
@@ -61,8 +65,7 @@ public class Niveles extends JPanel implements ActionListener {
 	}
 
 	public void seleccionarDificultad(String dificultad){
-		Juego elJuego = new Juego(dificultad);
-		//elJuego.setDificultad(dificultad);
+		Juego elJuego = new Juego(dificultad, "Partida Rápida");
 		this.getParent().add(elJuego);
 		this.getParent().remove(this);
 		elJuego.getParent().validate();
@@ -71,7 +74,7 @@ public class Niveles extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, null); // see javadoc for morye info on the parameters            
+        g.drawImage(image, 0, 0, null);   
     }
 
 	@Override
@@ -83,8 +86,7 @@ public class Niveles extends JPanel implements ActionListener {
 			this.panel.getParent().validate();
 		}
 		else{
-			JButton origen = (JButton)e.getSource();
-			String dificultad=origen.getText();
+			String dificultad=e.getActionCommand();
 			this.seleccionarDificultad(dificultad);
 			System.out.println(dificultad);			
 		}

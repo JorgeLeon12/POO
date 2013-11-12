@@ -31,10 +31,10 @@ class PanelControl extends JPanel implements ActionListener{
 		inicio=new JButton("Comenzar nuevo juego");
 		continuar=new JButton("Continuar Juego");
 		instrucciones=new JButton("Instrucciones");
-		niveles=new JButton("Niveles");
+		niveles=new JButton("Partida Rápida");
 		
 		try {
-			img= ImageIO.read(new File(".//Imagenes//logo.jpg"));
+			img= ImageIO.read(new File(".//Imagenes//logo.png"));
 		} catch (IOException e) {
 			System.out.println("Error, imagen no encontrada");
 		}

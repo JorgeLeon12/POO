@@ -11,13 +11,7 @@ public class ventana extends JFrame{
 		this.setMinimumSize(new Dimension(750,550));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-
-	public void niveles(){
-
-		Niveles panel=new Niveles();
-		this.add(panel);
-		repaint();	
+		
 	}
 
 	public void actualizar(){

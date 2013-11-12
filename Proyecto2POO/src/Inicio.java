@@ -65,20 +65,6 @@ public class Inicio extends JPanel implements ActionListener{
                 this.add(inferior, BorderLayout.SOUTH);
         }
         
-        public void guardarUs(String usuario){
-                try {
-                        String archivo=new File("").getAbsolutePath()+"//JuegosGuardados//"+usuario+".txt";
-                        PrintWriter escritor=new PrintWriter(new FileWriter(archivo));
-                        escritor.println(""+usuario);
-                        escritor.println(0);
-                        escritor.close();
-                } catch (IOException e) {
-                        File carpeta =new File(".//JuegosGuardados");
-                        carpeta.mkdirs();
-                        this.guardarUs(usuario);
-                        
-                }
-        }
 
 
         @Override
@@ -98,19 +84,11 @@ public class Inicio extends JPanel implements ActionListener{
   		                    dialogo.add(advertencia);
   	                        dialogo.setAlwaysOnTop(true);
   	                        dialogo.setVisible(true);
+  	                        
                         }
                         else{                        	
-	                        this.guardarUs(usuario);
-	                        dialogo=new JDialog(this.ventana,"¡Éxito!");                
-	                        dialogo.setModal(true);
-		                    advertencia.add(new JLabel("¡Partida Creada!"));
-		                    advertencia.add(this.aceptar);
-		                    dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,270,110);
-		                    dialogo.add(advertencia);
-	                        dialogo.setAlwaysOnTop(true);
-	                        dialogo.setVisible(true);
-	                        panel=new Juego();
-	                        
+                    
+	                        panel=new Juego("sencillo", usuario);	                   
 	                        this.getParent().add(panel);
 	                        this.getParent().remove(this);
 	                        panel.getParent().validate();
@@ -120,10 +98,11 @@ public class Inicio extends JPanel implements ActionListener{
                         panel=new PanelControl();
                         this.getParent().add(panel);
                         this.getParent().remove(this);
-                        panel.getParent().validate();                        
+                        panel.getParent().validate();
+                        
                 }
                 if(e.getSource()==aceptar){
-                dialogo.dispose();	
+                dialogo.dispose();
                 }
         }
 }
