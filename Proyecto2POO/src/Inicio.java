@@ -87,8 +87,8 @@ public class Inicio extends JPanel implements ActionListener{
   	                        
                         }
                         else{                        	
-                    
-	                        panel=new Juego("sencillo", usuario);	                   
+                        	GuardarPartida partida=new GuardarPartida(this.usuario.getText(),"sencillo",0);
+	                        panel=new Juego("sencillo", usuario, 0);	                   
 	                        this.getParent().add(panel);
 	                        this.getParent().remove(this);
 	                        panel.getParent().validate();

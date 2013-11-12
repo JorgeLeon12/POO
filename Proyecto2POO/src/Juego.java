@@ -28,10 +28,12 @@ public class Juego extends JPanel implements ActionListener{
         private ventana ventana;
         JDialog dialogo;
 
-        public Juego(String difi, String usuario){
+        public Juego(String difi, String usuario, int puntuacion){
                 super();
                 this.dificultad = difi;
-                this.usuario=usuario;        
+                this.usuario=usuario;
+                this.puntuacion=puntuacion;
+                System.out.println(this.dificultad);
                 this.setLayout(new BorderLayout());
                 JPanel superior=new JPanel();
                 JPanel inferior=new JPanel();
@@ -277,33 +279,34 @@ public class Juego extends JPanel implements ActionListener{
         public void actionPerformed(ActionEvent e) {
                 JPanel panel;                
                 if(e.getSource()==cerrar){
-                        JPanel advertencia=new JPanel(); 
-                        JPanel superior= new JPanel();
-                        JPanel inferior= new JPanel();
-                        dialogo=new JDialog(ventana,"Espera...");
-                        aceptar=new JButton("Aceptar");
-                        cancelar=new JButton("Cancelar");
-            advertencia.setLayout(new BorderLayout(10,10));
-            superior.setPreferredSize(new Dimension(300,60));
-            superior.setLayout(new FlowLayout(FlowLayout.CENTER,10,5));
-            inferior.setLayout(new FlowLayout(FlowLayout.CENTER,10,5));
-                                        
-                        dialogo.setModal(true);
-                        superior.add(new JLabel("¿Quieres salir del juego ahora?"));
-                        superior.add(new JLabel( "Tu partida se guardará para que puedas"));
-                        superior.add(new JLabel( " continuar más tarde."));
-                        inferior.add(aceptar);
-                        inferior.add(cancelar);
-                        advertencia.add(superior,BorderLayout.NORTH);
-                        advertencia.add(inferior, BorderLayout.SOUTH);
-                        
-                        cancelar.addActionListener(this);
-                        aceptar.addActionListener(this);
-                        dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,300,140);                        
-                        dialogo.add(advertencia);
-                        dialogo.setAlwaysOnTop(true);
-                        dialogo.setResizable(false);
-                        dialogo.setVisible(true);
+                	JPanel advertencia=new JPanel(); 
+                	JPanel superior= new JPanel();
+                	JPanel inferior= new JPanel();
+                	dialogo=new JDialog(ventana,"Espera...");
+                	aceptar=new JButton("Aceptar");
+                	cancelar=new JButton("Cancelar");
+                	advertencia.setLayout(new BorderLayout(10,10));
+                	superior.setPreferredSize(new Dimension(300,60));
+                	superior.setLayout(new FlowLayout(FlowLayout.CENTER,10,5));
+                	inferior.setLayout(new FlowLayout(FlowLayout.CENTER,10,5));
+                	superior.add(new JLabel("¿Quieres salir del juego ahora?"));
+                	if(this.usuario!="Partida Rápida"){
+                		superior.add(new JLabel( "Tu partida se guardará para que puedas"));
+                		superior.add(new JLabel( " continuar más tarde."));                		
+                	}
+                	dialogo.setModal(true);
+                	inferior.add(aceptar);
+                	inferior.add(cancelar);
+                	advertencia.add(superior,BorderLayout.NORTH);
+                	advertencia.add(inferior, BorderLayout.SOUTH);
+
+                	cancelar.addActionListener(this);
+                	aceptar.addActionListener(this);
+                	dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,300,140);                        
+                	dialogo.add(advertencia);
+                	dialogo.setAlwaysOnTop(true);
+                	dialogo.setResizable(false);
+                	dialogo.setVisible(true);
                 }
                 if(e.getSource()==enviar){
                         this.validar(this.num1,this.num2,this.respUsr);
@@ -311,6 +314,9 @@ public class Juego extends JPanel implements ActionListener{
                 }
                 if(e.getSource()==aceptar){
                         dialogo.dispose();
+                        if(this.usuario!="Partida Rápida"){
+                        	GuardarPartida partida=new GuardarPartida();
+                        }
                         panel=new PartidaTerminada();
                         this.getParent().add(panel);
                         this.getParent().remove(this);

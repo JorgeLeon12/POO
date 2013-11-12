@@ -65,7 +65,7 @@ public class Niveles extends JPanel implements ActionListener {
 	}
 
 	public void seleccionarDificultad(String dificultad){
-		Juego elJuego = new Juego(dificultad, "Partida Rápida");
+		Juego elJuego = new Juego(dificultad, "Partida Rápida",0);
 		this.getParent().add(elJuego);
 		this.getParent().remove(this);
 		elJuego.getParent().validate();

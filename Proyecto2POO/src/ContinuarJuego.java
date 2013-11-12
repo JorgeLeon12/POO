@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 
 public class ContinuarJuego extends JPanel implements ActionListener{
 	JButton cancelar, boton, nuevo;
-	String[] usuario;
+	String[] usuario, nivel;
 	int[] score;
 	
 	public ContinuarJuego(){
@@ -39,7 +39,7 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 
 		for(int i=0;this.usuario.length>i;i++){
 			boton=new JButton("Usuario: "+usuario[i]+" Score: "+score[i]);
-			boton.setActionCommand(usuario[i]);
+			boton.setActionCommand(Integer.toString(i));
 			boton.setPreferredSize(new Dimension(400, 50));
 			boton.addActionListener(this);
 			contenedor.add(boton);			
@@ -76,7 +76,8 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 		if (archivo.exists()){ 
 			File[] ficheros = archivo.listFiles();
 			this.usuario=new String[ficheros.length];
-			this.score=new int[ficheros.length];			
+			this.score=new int[ficheros.length];	
+			this.nivel=new String[ficheros.length];
 			for (int i=0;i<ficheros.length;i++){
 				int j=0;
 				try {
@@ -87,6 +88,9 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 							
 						}
 						if(j==1){
+							this.nivel[i]=linea.toString();
+						}						
+						if(j==2){
 							this.score[i]=Integer.parseInt(linea);
 							System.out.println(linea);
 						}
@@ -115,22 +119,25 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 		JPanel panel=new JPanel();	
 		if(e.getSource()==this.cancelar){
 			panel=new PanelControl();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
-			panel.getParent().validate();
+
 		}
 		else{
-			System.out.println(e.getActionCommand());
-			
-		}
-		if(e.getSource()==this.nuevo){
-			panel=new Inicio();
-			this.getParent().add(panel);
-			this.getParent().remove(this);
-			panel.getParent().validate();
-		}
-		if(e.getSource()==this.cancelar){
-			
-		}
+			if(e.getSource()==this.nuevo){
+				panel=new Inicio();
+				this.getParent().add(panel);
+			}
+			else{
+				int posicion=Integer.parseInt(e.getActionCommand());
+				String usuario=this.usuario[posicion];
+				String nivel=this.nivel[posicion];
+				int score=this.score[posicion];
+				System.out.println(nivel);
+				panel=new Juego(nivel,usuario,score);
+			}
+
+		}		
+		this.getParent().add(panel);
+		this.getParent().remove(this);
+		panel.getParent().validate();
 	}
 }
