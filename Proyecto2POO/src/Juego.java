@@ -178,7 +178,7 @@ public class Juego extends JPanel implements ActionListener{
         public void numerosRandom(String dificultad){
                 Random ran=new Random();
                 int maxNum;
-                if(dificultad.equals("sencillo")){
+                if(dificultad.equals("sencillo")){                	
                         maxNum=10;
                         do{
                                 this.num1=ran.nextInt(10);
@@ -207,7 +207,8 @@ public class Juego extends JPanel implements ActionListener{
                                 this.num1=ran.nextInt(50);
                                 this.num2=ran.nextInt(50);
                         }while(num1+num2<=maxNum);                        
-                }                
+                }            
+                System.out.println(this.num1+this.num2);
         }
 
         public void validar(int num1, int num2, JTextField respUsr) {
@@ -215,10 +216,8 @@ public class Juego extends JPanel implements ActionListener{
                 if((num1+num2)==respuesta){
                 		this.puntuacion+=10;                		
                 		this.nuevoNivel();
-                		this.numerosRandom(this.dificultad);
-                		System.out.println(this.num1+" "+this.num2);
+                		this.numerosRandom(this.dificultad);                		
                 		this.lienzo.setNumeros(this.num1,this.num2);
-                		this.rePintar();
                 		panel=new validador(this.lienzo, "correcto");
                 }                
                 else{
@@ -228,24 +227,26 @@ public class Juego extends JPanel implements ActionListener{
                 	panel=new validador(this.lienzo, "incorrecto");
                 	this.nuevoNivel();        			   
                 }
+                this.marco.setDificultad(this.dificultad);
                 this.tablero.setPuntaje(this.puntuacion);
                 this.add(panel, BorderLayout.CENTER);
     			this.remove(this.lienzo);
     			panel.getParent().validate();
     			this.rePintar();   
+    			
         }
         
         public void rePintar(){
         	this.numerosRandom(this.dificultad);
     		this.lienzo.setNumeros(this.num1,this.num2);
-    		this.tablero.setPuntaje(this.puntuacion);
     		this.lienzo.repaint();
-    		this.tablero.repaint();            	
+    		this.tablero.repaint(); 
+    		this.marco.repaint();
         }
         
         public void nuevoNivel(){
         	if(puntuacion<=100){
-        		this.dificultad="Sencillo";
+        		this.dificultad="sencillo";
         	}else{
         		if(puntuacion<=200){
         			this.dificultad="facil";
