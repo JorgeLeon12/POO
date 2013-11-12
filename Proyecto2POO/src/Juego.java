@@ -33,7 +33,6 @@ public class Juego extends JPanel implements ActionListener{
                 this.dificultad = difi;
                 this.usuario=usuario;
                 this.puntuacion=puntuacion;
-                System.out.println(this.dificultad);
                 this.setLayout(new BorderLayout());
                 JPanel superior=new JPanel();
                 JPanel inferior=new JPanel();
@@ -174,15 +173,16 @@ public class Juego extends JPanel implements ActionListener{
         public void numerosRandom(String dificultad){
                 Random ran=new Random();
                 int maxNum;
-
-                if(dificultad=="sencillo"){
+                System.out.println(dificultad);
+                if(dificultad.equals("sencillo")){
+                	System.out.println(dificultad);
                         maxNum=10;
                         do{
                                 this.num1=ran.nextInt(10);
                                 this.num2=ran.nextInt(10);
                         }while(num1+num2<=maxNum);
                 }        
-                if(dificultad=="facil"){
+                if(dificultad.equals("facil")){
                         maxNum=20;        
                         do{
                                 this.num1=ran.nextInt(20);
@@ -190,7 +190,7 @@ public class Juego extends JPanel implements ActionListener{
                         }while(num1+num2<=maxNum);
 
                 }
-                if(dificultad=="retador"){
+                if(dificultad.equals("retador")){
                         maxNum=40;
                         do{
                                 this.num1=ran.nextInt(40);
@@ -198,14 +198,14 @@ public class Juego extends JPanel implements ActionListener{
                         }while(num1+num2<=maxNum);
 
                 }
-                if(dificultad=="dificil"){
+                if(dificultad.equals("dificil")){
                         maxNum=50;
                         do{
                                 this.num1=ran.nextInt(50);
                                 this.num2=ran.nextInt(50);
                         }while(num1+num2<=maxNum);                        
                 }
-
+                System.out.println(num1+" "+num2);
         }
 
         public void validar(int num1, int num2, JTextField respUsr) {

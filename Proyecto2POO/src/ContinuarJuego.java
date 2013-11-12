@@ -91,8 +91,7 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 							this.nivel[i]=linea.toString();
 						}						
 						if(j==2){
-							this.score[i]=Integer.parseInt(linea);
-							System.out.println(linea);
+							this.score[i]=Integer.parseInt(linea);							
 						}
 						j++;						
 					}					
@@ -107,7 +106,6 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 		}
 		
 		else{
-			System.out.println("EL directorio no existe");
 			 File carpeta =new File(".//JuegosGuardados");
              carpeta.mkdirs();
              this.lector();
@@ -131,7 +129,6 @@ public class ContinuarJuego extends JPanel implements ActionListener{
 				String usuario=this.usuario[posicion];
 				String nivel=this.nivel[posicion];
 				int score=this.score[posicion];
-				System.out.println(nivel);
 				panel=new Juego(nivel,usuario,score);
 			}
 

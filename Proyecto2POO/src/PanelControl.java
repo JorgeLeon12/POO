@@ -56,11 +56,6 @@ class PanelControl extends JPanel implements ActionListener{
 		this.add(superior, BorderLayout.NORTH);
 		this.add(contenedor, BorderLayout.SOUTH);				
 	}
-
-	public void addPanel(JPanel panel){
-		this.add(panel);
-		System.out.println("listo");
-	}
 	
 	public void paint(Graphics g){		
 		super.paint(g);		
