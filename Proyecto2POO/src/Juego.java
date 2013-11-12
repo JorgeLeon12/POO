@@ -27,7 +27,12 @@ public class Juego extends JPanel implements ActionListener{
         public boolean respuestaCorrecta;
         private ventana ventana;
         JDialog dialogo;
-
+        JPanel panel;
+        pintarJuego lienzo;
+        MarcoCentral marco;
+        Marcador tablero;
+        
+        
         public Juego(String difi, String usuario, int puntuacion){
                 super();
                 this.dificultad = difi;
@@ -39,7 +44,7 @@ public class Juego extends JPanel implements ActionListener{
                 JPanel derecha=new JPanel();
                 JLabel texto=new JLabel("Usuario: ");
                 JLabel nombre=new JLabel(this.usuario);
-                pintarJuego lienzo=new pintarJuego();
+                this.lienzo=new pintarJuego();
 
                 respUsr=new JTextField(5);
                 enviar=new JButton("Aceptar");
@@ -47,10 +52,10 @@ public class Juego extends JPanel implements ActionListener{
                 cerrar.addActionListener(this);
                 enviar.addActionListener(this);
 
-                Marcador tablero=new Marcador();
-                MarcoCentral marco=new MarcoCentral();
-                tablero.setPuntaje(this.puntuacion);
-                marco.setDificultad(this.dificultad);        
+                this.tablero=new Marcador();
+                this.marco=new MarcoCentral();
+                this.tablero.setPuntaje(this.puntuacion);
+                this.marco.setDificultad(this.dificultad);        
                 derecha.setLayout(new FlowLayout(FlowLayout.CENTER,30,10));
                 derecha.setPreferredSize(new Dimension(150,100));
                 derecha.setBackground(Color.DARK_GRAY);        
@@ -68,16 +73,16 @@ public class Juego extends JPanel implements ActionListener{
                 inferior.add(enviar);
                 superior.setLayout(new BorderLayout());  
                 superior.add(derecha, BorderLayout.EAST);     
-                superior.add(tablero, BorderLayout.WEST);       
-                superior.add(marco, BorderLayout.CENTER);
+                superior.add(this.tablero, BorderLayout.WEST);       
+                superior.add(this.marco, BorderLayout.CENTER);
                 superior.setPreferredSize(new Dimension(800,100));
                 superior.setBackground(Color.GRAY);
 
                 this.add(superior, BorderLayout.NORTH);
                 this.add(inferior, BorderLayout.SOUTH);
                 this.numerosRandom(this.dificultad);
-                lienzo.setNumeros(num1, num2);
-                this.add(lienzo, BorderLayout.CENTER);     
+                this.lienzo.setNumeros(num1, num2);
+                this.add(this.lienzo, BorderLayout.CENTER);     
 
         }
 
@@ -173,9 +178,7 @@ public class Juego extends JPanel implements ActionListener{
         public void numerosRandom(String dificultad){
                 Random ran=new Random();
                 int maxNum;
-                System.out.println(dificultad);
                 if(dificultad.equals("sencillo")){
-                	System.out.println(dificultad);
                         maxNum=10;
                         do{
                                 this.num1=ran.nextInt(10);
@@ -204,14 +207,21 @@ public class Juego extends JPanel implements ActionListener{
                                 this.num1=ran.nextInt(50);
                                 this.num2=ran.nextInt(50);
                         }while(num1+num2<=maxNum);                        
-                }
-                System.out.println(num1+" "+num2);
+                }                
         }
 
         public void validar(int num1, int num2, JTextField respUsr) {
                 int respuesta=Integer.parseInt(respUsr.getText());
                 if((num1+num2)==respuesta){
+                		this.puntuacion+=10;
+                		this.numerosRandom(this.dificultad);
+                		this.lienzo.setNumeros(this.num1,this.num2);
+                		this.tablero.setPuntaje(this.puntuacion);
+                		this.lienzo.repaint();
+                		this.tablero.repaint();    
+      
                         System.out.println("Correcto!");
+                       
                 }
                 
         }
@@ -310,6 +320,7 @@ public class Juego extends JPanel implements ActionListener{
                 }
                 if(e.getSource()==enviar){
                         this.validar(this.num1,this.num2,this.respUsr);
+            
 
                 }
                 if(e.getSource()==aceptar){
