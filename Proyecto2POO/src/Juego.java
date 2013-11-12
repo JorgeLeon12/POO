@@ -208,11 +208,12 @@ public class Juego extends JPanel implements ActionListener{
                                 this.num2=ran.nextInt(50);
                         }while(num1+num2<=maxNum);                        
                 }            
+                System.out.println(this.num1+" "+this.num2);
                 System.out.println(this.num1+this.num2);
         }
 
-        public void validar(int num1, int num2, JTextField respUsr) {
-                int respuesta=Integer.parseInt(respUsr.getText());
+        public void validar(int num1, int num2, int respUsr) {
+                int respuesta=respUsr;                
                 if((num1+num2)==respuesta){
                 		this.puntuacion+=10;                		
                 		this.nuevoNivel();
@@ -258,7 +259,7 @@ public class Juego extends JPanel implements ActionListener{
         			}
         			else{
         				if(puntuacion>=400){
-        					this.dificultad="dificl";
+        					this.dificultad="dificil";
         				}
         			}
         		}
@@ -278,7 +279,9 @@ public class Juego extends JPanel implements ActionListener{
                         this.unidad=num1%10;
                         this.unidad2=num2%10;
                         this.decena=num1/10;
+                        System.out.println("Decena"+this.decena);
                         this.decena2=num2/10; 
+                        System.out.println("Decena"+this.decena2);
                         this.crearNumeros(this.unidad,this.unidad2,this.decena,this.decena2); 
                 }            
 
@@ -289,6 +292,12 @@ public class Juego extends JPanel implements ActionListener{
                                 if(decena==0 || decena2==0){
                                         this.uni=ImageIO.read(new File("./Numeros/"+unidad+".png"));
                                         this.uni2=ImageIO.read(new File ("./Numeros/"+unidad2+".png"));
+                                        if(decena==0){
+                                        	this.dec=null;
+                                        }
+                                        if(decena2==0){
+                                        	this.dec2=null;                                        	
+                                        }
                                 }
                                 else{
                                         this.uni=ImageIO.read(new File("./Numeros/"+unidad+".png"));
@@ -357,10 +366,34 @@ public class Juego extends JPanel implements ActionListener{
                 	dialogo.setVisible(true);
                 }
                 if(e.getSource()==enviar){
-                        this.validar(this.num1,this.num2,this.respUsr);
-            
+                	int num;
+                	try {
+                		num = Integer.parseInt(respUsr.getText());
+                		this.validar(this.num1,this.num2,num);
+                		respUsr.setText(null);
+                	} catch (NumberFormatException e1) {
+                		dialogo=new JDialog(ventana,"¡HEY!");
+                		JButton aceptar2=new JButton("Aceptar");
+                		JPanel advertencia=new JPanel();
+                		advertencia.setLayout(new FlowLayout(FlowLayout.CENTER,100,10));
+                		advertencia.add(new JLabel( "Introduce sólo numeros"));
+                		advertencia.add(aceptar2);
+                		dialogo.setBounds(this.getWidth()/2,this.getHeight()/2,300,100);                        
+                		dialogo.add(advertencia);
+                		dialogo.setAlwaysOnTop(true);
+                		dialogo.setResizable(false);
+                		dialogo.setVisible(true);
+                		aceptar2.addActionListener(new ActionListener(){
+                			public void actionPerformed(ActionEvent e){
+                				dialogo.dispose();
+                				respUsr.setText(null);							
+                			}
+                		});
 
-                }
+                	}
+                }                
+
+                
                 if(e.getSource()==aceptar){
                         dialogo.dispose();
                         if(this.usuario!="Partida Rápida"){
